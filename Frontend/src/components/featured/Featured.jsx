@@ -1,14 +1,14 @@
 import React from 'react'
-import "./featured.scss"
+import './Featured.scss'
 const Featured = () => {
-  return (
+return (
     <div className='featured'>
-        <div className="containe">
+        <div className="container">
             <div className="left">
-                <h1>Find the Perfect freelance services for your business</h1>
+                <h1>Find the Perfect <i>freelance</i> services for your business</h1>
                 <div className="search">
                     <div className="searchInput">
-                        <img src="" alt="" />
+                        <img src="../../../public/img/search.png" alt=" search image " />
                         <input type="text" placeholder='Try bulding mobile app' />
                         <button>Search</button>
                     </div>
@@ -21,10 +21,12 @@ const Featured = () => {
                     <button>AI Services</button>
                 </div>
             </div>
-            <div className="right"></div>
+            <div className="right">
+                <img src="../../../public/img/man.png" alt="male human image" />
+            </div>
         </div>
     </div>
-  )
+    )
 }
 
 export default Featured
