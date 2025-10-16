@@ -7,10 +7,11 @@
     transition: all 0.5s ease;
     position: sticky;
     top: 0;
+    z-index: 1000;
     // overflow-x: hidden;
 
     &.active{
-        background-color: #ffffff;
+        background-color: #ffffffda;
         color: black;
     }
     .container{
