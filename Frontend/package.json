@@ -13,8 +13,10 @@
     "bootstrap-icons": "^1.13.1",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "react-multi-carousel": "^2.8.6",
     "react-router-dom": "^7.9.4",
-    "sass": "^1.93.2"
+    "sass": "^1.93.2",
+    "swiper": "^12.0.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",

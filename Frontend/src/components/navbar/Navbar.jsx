@@ -25,7 +25,7 @@ function Navbar() {
 
     const currentUser={
         id:1,
-        username:"John Doe",
+        username:"asmaa ali",
         isSeller:true
     };
 
