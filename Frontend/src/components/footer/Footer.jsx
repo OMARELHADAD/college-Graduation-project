@@ -52,7 +52,7 @@ const Footer = () => {
                         <span>Community Standards</span>
                     </div>
                     <div className="item">
-                        <h2>More From Fiverr</h2>
+                        <h2>More From Skillverse</h2>
                         <span>Skillverse Business</span>
                         <span>Skillverse Pro</span>
                         <span>Skillverse Logo Maker</span>
