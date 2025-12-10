@@ -1,0 +1,73 @@
+.slide {
+  display: flex;
+  justify-content: center;
+  padding: 100px 0px;
+<<<<<<< HEAD
+  background: white;
+=======
+>>>>>>> a68b8a9493919f638f23b69bc41f1ec47a4e2cae
+
+  .container {
+    width: 1400px;
+    position: relative;
+  }
+
+  // Swiper navigation buttons
+  .swiper-button-prev,
+  .swiper-button-next {
+<<<<<<< HEAD
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #1dbf73;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(29, 191, 115, 0.2);
+    transition: all 0.3s ease;
+    top: 50%;
+    transform: translateY(-50%);
+
+    &:hover {
+      background: #18a765;
+      box-shadow: 0 4px 12px rgba(29, 191, 115, 0.3);
+    }
+  }
+
+  .swiper-button-prev {
+    left: -60px;
+  }
+  .swiper-button-next {
+    right: -60px;
+=======
+    width: 30px;
+    height: 30px;
+    border-radius: 20%;
+    background: #00df7028;
+    color: #013914;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(49, 255, 111, 0.453);
+    transition: background 0.2s;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .swiper-button-prev {
+    left: -25px;
+  }
+  .swiper-button-next {
+    right: -25px;
+>>>>>>> a68b8a9493919f638f23b69bc41f1ec47a4e2cae
+  }
+
+  // Swiper slide
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 344px; // match your card height
+  }
+}

@@ -1,0 +1,56 @@
+.sidebar {
+  position: fixed;
+  right: 0;
+  top: 0; // Adjust based on navbar height if needed, or keep full height
+  height: 100vh;
+  background-color: #f5f5f5; // Light gray background
+  border-left: 1px solid #ddd;
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000; // Ensure it's above other content
+  width: 300px;
+  transform: translateX(100%); // Hidden by default
+
+  &.open {
+    transform: translateX(0);
+  }
+
+  &.closed {
+    transform: translateX(100%);
+  }
+
+  .toggle-btn {
+    position: absolute;
+    left: -40px; // Position outside the sidebar
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background-color: #1dbf73; // Fiverr green or similar
+    color: white;
+    border: none;
+    border-radius: 5px 0 0 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+
+    &:hover {
+        background-color: darken(#1dbf73, 10%);
+    }
+  }
+
+  .content {
+    padding: 20px;
+    
+    h2 {
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    p {
+        color: #666;
+    }
+  }
+}

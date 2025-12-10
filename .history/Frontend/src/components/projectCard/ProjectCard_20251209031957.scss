@@ -1,0 +1,61 @@
+.projectCard {
+    width: 300px;
+    height: 300px;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid #e0e0e0;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+
+    &:hover {
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        transform: translateY(-4px);
+    }
+
+    img {
+        width: 100%;
+        height: 70%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .info {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 20px;
+        padding: 15px;
+        background: #f8f9fa;
+
+        img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+            border: 2px solid #1dbf73;
+        }
+
+        .texts {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            h2 {
+                font-size: 14px;
+                font-weight: 500;
+                margin: 0;
+                color: #333;
+            }
+
+            span {
+                font-size: 13px;
+                font-weight: 400;
+                margin: 0;
+                color: #666;
+            }
+        }
+    }
+}
