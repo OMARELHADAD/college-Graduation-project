@@ -1,0 +1,195 @@
+    .myGigs {
+        display: flex;
+        justify-content: center;
+        padding: 40px 20px;
+        background: var(--bg-primary);
+        min-height: 100vh;
+        color: var(--text-secondary);
+        background-image: radial-gradient(circle at 10% 20%, rgba(78, 84, 200, 0.1) 0%, transparent 20%),
+            radial-gradient(circle at 90% 80%, rgba(143, 148, 251, 0.1) 0%, transparent 20%);
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.03); // Glass effect
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+
+            .title {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 40px;
+                gap: 20px;
+
+                h1 {
+                    font-size: 32px;
+                    font-weight: 800;
+                    letter-spacing: -1px;
+                    background: linear-gradient(45deg, #4e54c8, #8f94fb, #ff00cc, #4e54c8);
+                    background-size: 300% 300%;
+                    -webkit-background-clip: text;
+                    background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    animation: cosmic-flow 6s ease infinite;
+                }
+
+                a {
+                    text-decoration: none;
+                }
+
+                button {
+                    background: var(--accent-gradient);
+                    color: white;
+                    font-weight: 600;
+                    border: none;
+                    padding: 12px 28px;
+                    cursor: pointer;
+                    border-radius: 8px;
+                    transition: all 0.3s ease;
+                    box-shadow: 0 4px 12px rgba(78, 84, 200, 0.25);
+                    white-space: nowrap;
+
+                    &:hover {
+                        filter: brightness(1.1);
+                        box-shadow: 0 6px 16px rgba(78, 84, 200, 0.4);
+                        transform: translateY(-2px);
+                    }
+
+                    &:active {
+                        transform: translateY(0);
+                    }
+                }
+            }
+
+            .empty-state {
+                text-align: center;
+                padding: 80px 20px;
+                color: var(--text-muted);
+                border: 2px dashed rgba(255, 255, 255, 0.1);
+                border-radius: 12px;
+
+                p {
+                    font-size: 18px;
+                    margin-bottom: 30px;
+                }
+            }
+
+            table {
+                width: 100%;
+                border-collapse: separate;
+                border-spacing: 0 10px;
+
+                thead {
+                    th {
+                        text-align: left;
+                        padding: 16px;
+                        font-weight: 700;
+                        color: var(--text-muted);
+                        font-size: 12px;
+                        text-transform: uppercase;
+                        letter-spacing: 1px;
+                    }
+                }
+
+                tbody {
+                    tr {
+                        background: rgba(255, 255, 255, 0.02);
+                        transition: all 0.3s ease;
+
+                        &:hover {
+                            background: rgba(255, 255, 255, 0.05);
+                            transform: scale(1.01);
+                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                        }
+
+                        td {
+                            padding: 20px;
+                            font-size: 14px;
+                            color: var(--text-secondary);
+                            border-top: 1px solid rgba(255, 255, 255, 0.05);
+                            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
+                            &:first-child {
+                                border-top-left-radius: 12px;
+                                border-bottom-left-radius: 12px;
+                                border-left: 1px solid rgba(255, 255, 255, 0.05);
+                            }
+
+                            &:last-child {
+                                border-top-right-radius: 12px;
+                                border-bottom-right-radius: 12px;
+                                border-right: 1px solid rgba(255, 255, 255, 0.05);
+                            }
+
+                            .image {
+                                width: 80px;
+                                height: 50px;
+                                object-fit: cover;
+                                border-radius: 6px;
+                                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                            }
+
+                            .gig-title-link {
+                                color: var(--text-primary);
+                                font-weight: 600;
+                                text-decoration: none;
+                                font-size: 16px;
+
+                                &:hover {
+                                    color: var(--accent-color);
+                                }
+                            }
+
+                            .actions {
+                                display: flex;
+                                gap: 10px;
+
+                                button {
+                                    background: rgba(255, 255, 255, 0.05);
+                                    border: none;
+                                    padding: 10px;
+                                    border-radius: 50%;
+                                    cursor: pointer;
+                                    transition: all 0.2s;
+
+                                    &:hover {
+                                        background: var(--accent-color);
+                                        color: white;
+                                        transform: rotate(10deg);
+                                    }
+
+                                    &.delete-btn:hover {
+                                        background: #ff4757;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @media (max-width: 768px) {
+        .myGigs {
+            padding: 20px;
+
+            .container {
+                padding: 20px;
+
+                .title {
+                    flex-direction: column;
+                    align-items: stretch;
+                }
+
+                table {
+                    display: block;
+                    overflow-x: auto;
+                }
+            }
+        }
+    }

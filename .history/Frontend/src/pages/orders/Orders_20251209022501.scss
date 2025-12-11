@@ -1,0 +1,176 @@
+.orders {
+  display: flex;
+  justify-content: center;
+  padding: 40px 0;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+  color: #555;
+
+  .container {
+    width: 1400px;
+    padding: 30px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 30px;
+      color: #333;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      &:before {
+        content: "📦";
+        font-size: 32px;
+      }
+    }
+
+    .title {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+
+      button {
+        background: linear-gradient(135deg, #1dbf73 0%, #18a765 100%);
+        color: white;
+        font-weight: 500;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(29, 191, 115, 0.3);
+
+        &:hover {
+          background: linear-gradient(135deg, #18a765 0%, #159b5f 100%);
+          box-shadow: 0 6px 20px rgba(29, 191, 115, 0.4);
+          transform: translateY(-2px);
+        }
+      }
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+
+      thead {
+        background: linear-gradient(135deg, #f0f0f0 0%, #e8e8e8 100%);
+        
+        th {
+          text-align: left;
+          padding: 15px;
+          font-weight: 600;
+          color: #333;
+          font-size: 13px;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          border-bottom: 2px solid #1dbf73;
+        }
+      }
+
+      tbody {
+        tr {
+          height: 80px;
+          border-bottom: 1px solid #e0e0e0;
+          transition: all 0.2s ease;
+
+          td {
+            padding: 15px;
+            font-size: 14px;
+            
+            sup{
+              font-size: 12px;
+            }
+
+            .image {
+              width: 70px;
+              height: 50px;
+              object-fit: cover;
+              border-radius: 8px;
+              box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+              transition: transform 0.2s ease;
+
+              &:hover {
+                transform: scale(1.05);
+              }
+            }
+
+            .message {
+              width: 30px;
+              height: 30px;
+              cursor: pointer;
+              padding: 8px;
+              border-radius: 8px;
+              background: #f0f0f0;
+              transition: all 0.2s ease;
+
+              &:hover {
+                background: linear-gradient(135deg, #1dbf73 0%, #18a765 100%);
+                transform: scale(1.1);
+              }
+            }
+          }
+
+          &:hover {
+            background: linear-gradient(135deg, #f9f9f9 0%, #f0f0f0 100%);
+          }
+
+          &:nth-child(even) {
+            background-color: #f9f9f9;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .orders {
+    padding: 20px 0;
+
+    .container {
+      width: 100%;
+      margin: 0 15px;
+      padding: 20px;
+
+      h1 {
+        font-size: 20px;
+      }
+
+      table {
+        font-size: 12px;
+
+        thead {
+          th {
+            padding: 10px;
+            font-size: 11px;
+          }
+        }
+
+        tbody {
+          tr {
+            height: auto;
+
+            td {
+              padding: 10px;
+
+              .image {
+                width: 50px;
+                height: 35px;
+              }
+
+              .message {
+                width: 25px;
+                height: 25px;
+                padding: 6px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

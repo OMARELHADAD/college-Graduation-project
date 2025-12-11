@@ -1,0 +1,269 @@
+.community {
+    background: var(--bg-primary);
+    min-height: 100vh;
+    padding-bottom: 50px;
+
+    .hero {
+        height: 300px;
+        background: linear-gradient(180deg, #1a1a2e 0%, var(--bg-primary) 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+
+        .floating-shape {
+            position: absolute;
+            opacity: 0.1;
+            filter: blur(40px);
+            border-radius: 50%;
+            z-index: 0;
+
+            &.s1 {
+                width: 300px;
+                height: 300px;
+                background: #4e54c8;
+                top: -50px;
+                left: 10%;
+            }
+
+            &.s2 {
+                width: 200px;
+                height: 200px;
+                background: #8f94fb;
+                bottom: 20px;
+                right: 10%;
+            }
+        }
+
+        .container {
+            z-index: 1;
+
+            h1 {
+                font-size: 48px;
+                color: var(--text-primary);
+                margin-bottom: 10px;
+
+                .highlight {
+                    background: linear-gradient(90deg, #ff00cc, #333399);
+                    background-clip: text;
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                }
+            }
+
+            p {
+                font-size: 18px;
+                color: var(--text-secondary);
+            }
+        }
+    }
+
+    .main-content {
+        margin-top: -50px; // Overlap hero
+        display: flex;
+        gap: 40px;
+        position: relative;
+        z-index: 2;
+        width: 1400px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0 20px;
+
+        .sidebar {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 25px;
+            height: max-content;
+
+            h3 {
+                margin-bottom: 20px;
+                color: var(--text-primary);
+            }
+
+            .badge-card {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                padding: 15px;
+                background: var(--card-bg);
+                border-radius: 8px;
+                margin-bottom: 15px;
+                border: 1px solid var(--border-color);
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+
+                .icon {
+                    font-size: 24px;
+                }
+
+                .info {
+                    h4 {
+                        margin: 0;
+                        font-size: 14px;
+                        color: var(--text-primary);
+                    }
+
+                    span {
+                        font-size: 12px;
+                        color: var(--text-muted);
+                    }
+                }
+            }
+        }
+
+        .forum-feed {
+            flex: 3;
+
+            .tabs {
+                margin-bottom: 20px;
+
+                button {
+                    background: none;
+                    border: none;
+                    font-size: 16px;
+                    color: var(--text-secondary);
+                    margin-right: 20px;
+                    padding-bottom: 5px;
+                    cursor: pointer;
+                    position: relative;
+
+                    &.active {
+                        color: var(--accent-color);
+                        font-weight: 600;
+
+                        &::after {
+                            content: '';
+                            position: absolute;
+                            bottom: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 2px;
+                            background: var(--accent-color);
+                        }
+                    }
+                }
+            }
+
+            .threads {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+
+                .thread-card {
+                    background: var(--card-bg); // fallback
+                    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                    backdrop-filter: blur(5px);
+                    padding: 20px;
+                    border-radius: 12px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    cursor: pointer;
+                    transition: border 0.3s ease;
+
+                    &:hover {
+                        border-color: var(--accent-color);
+                    }
+
+                    .left {
+                        display: flex;
+                        gap: 15px;
+                        align-items: center;
+
+                        .avatar {
+                            img {
+                                width: 50px;
+                                height: 50px;
+                                border-radius: 50%;
+                                object-fit: cover;
+                                border: 2px solid var(--accent-color);
+                            }
+                        }
+
+                        .content {
+                            .tag {
+                                font-size: 10px;
+                                padding: 2px 6px;
+                                border-radius: 4px;
+                                text-transform: uppercase;
+                                font-weight: 700;
+                                margin-bottom: 5px;
+                                display: inline-block;
+
+                                &.tips {
+                                    background: rgba(52, 152, 219, 0.2);
+                                    color: #3498db;
+                                }
+
+                                &.help {
+                                    background: rgba(231, 76, 60, 0.2);
+                                    color: #e74c3c;
+                                }
+
+                                &.showcase {
+                                    background: rgba(155, 89, 182, 0.2);
+                                    color: #9b59b6;
+                                }
+
+                                &.tools {
+                                    background: rgba(46, 204, 113, 0.2);
+                                    color: #2ecc71;
+                                }
+                            }
+
+                            h3 {
+                                margin: 0 0 5px 0;
+                                font-size: 18px;
+                                color: var(--text-primary);
+                            }
+
+                            p {
+                                font-size: 12px;
+                                color: var(--text-secondary);
+                                margin: 0;
+
+                                b {
+                                    color: var(--text-primary);
+                                }
+                            }
+                        }
+                    }
+
+                    .right {
+                        display: flex;
+                        gap: 15px;
+
+                        .stat {
+                            display: flex;
+                            align-items: center;
+                            gap: 5px;
+                            font-size: 13px;
+                            color: var(--text-secondary);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Mobile Responsiveness
+@media (max-width: 1024px) {
+    .community .main-content {
+        flex-direction: column;
+        width: 100%;
+
+        .sidebar {
+            order: 2;
+        }
+
+        .forum-feed {
+            order: 1;
+        }
+    }
+}

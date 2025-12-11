@@ -1,0 +1,212 @@
+.register {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 40px 20px;
+
+  form {
+    width: 100%;
+    max-width: 900px;
+    padding: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+      font-size: 22px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      &:first-of-type {
+        &:before {
+          content: "👤";
+          font-size: 24px;
+        }
+      }
+    }
+
+    .left,
+    .right {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+
+      label {
+        color: var(--text-secondary);
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      input,
+      textarea {
+        padding: 12px 14px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 14px;
+        font-family: inherit;
+        transition: all 0.3s ease;
+        background: #f9f9f9;
+
+        &:focus {
+          outline: none;
+          border-color: var(--accent-color);
+          background: white;
+          box-shadow: 0 0 0 4px rgba(78, 84, 200, 0.15);
+        }
+
+        &::placeholder {
+          color: #999;
+        }
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 100px;
+      }
+
+      button {
+        border: none;
+        padding: 12px;
+        color: white;
+        font-weight: 600;
+        font-size: 15px;
+        background: var(--accent-gradient);
+        cursor: pointer;
+        border-radius: 8px;
+        margin-top: 10px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 4px 15px rgba(78, 84, 200, 0.2);
+
+        &:hover {
+          filter: brightness(1.1);
+          box-shadow: 0 6px 20px rgba(78, 84, 200, 0.3);
+          transform: translateY(-2px);
+        }
+
+        &:active {
+          transform: translateY(0);
+          box-shadow: 0 2px 8px rgba(78, 84, 200, 0.2);
+        }
+      }
+
+      .toggle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+        padding: 12px 14px;
+        background: #f9f9f9;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        margin-top: 10px;
+
+        label {
+          margin: 0;
+          color: var(--text-secondary);
+        }
+
+        .switch {
+          position: relative;
+          display: inline-block;
+          width: 50px;
+          height: 28px;
+          margin: 0;
+        }
+
+        .switch input {
+          opacity: 0;
+          width: 0;
+          height: 0;
+        }
+
+        .slider {
+          position: absolute;
+          cursor: pointer;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(135deg, #e0e0e0 0%, #d0d0d0 100%);
+          transition: all 0.4s ease;
+          border-radius: 28px;
+        }
+
+        .slider:before {
+          position: absolute;
+          content: "";
+          height: 22px;
+          width: 22px;
+          left: 3px;
+          bottom: 3px;
+          background: white;
+          transition: all 0.4s ease;
+          border-radius: 50%;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        input:checked+.slider {
+          background: var(--accent-gradient);
+        }
+
+        input:focus+.slider {
+          box-shadow: 0 0 0 4px rgba(78, 84, 200, 0.15);
+        }
+
+        input:checked+.slider:before {
+          transform: translateX(22px);
+        }
+
+        input:checked+.slider:before {
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .register {
+    padding: 20px;
+
+    form {
+      grid-template-columns: 1fr;
+      gap: 30px;
+      padding: 30px 20px;
+
+      h1 {
+        font-size: 18px;
+      }
+
+      .left,
+      .right {
+        gap: 12px;
+
+        input,
+        textarea {
+          padding: 10px 12px;
+          font-size: 13px;
+        }
+
+        button {
+          padding: 10px;
+          font-size: 13px;
+        }
+
+        .toggle {
+          padding: 10px 12px;
+        }
+      }
+    }
+  }
+}

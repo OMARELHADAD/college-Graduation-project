@@ -1,0 +1,193 @@
+.messages-page {
+  display: flex;
+  justify-content: center;
+  padding: 40px 0;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+
+  .container {
+    width: 1200px;
+    padding: 0 30px;
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 30px;
+      color: #222;
+      font-weight: 600;
+    }
+
+    .messages-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+
+      .message-card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        border-left: 4px solid transparent;
+        transition: all 0.3s ease;
+        cursor: pointer;
+
+        &:hover {
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+          transform: translateY(-2px);
+        }
+
+        &.active {
+          background-color: #1dbf73;
+          border-left-color: #1dbf73;
+
+          .message-header h3 {
+            font-weight: 600;
+            color: white;
+          }
+
+          .message-header .message-date {
+            color: rgba(255, 255, 255, 0.9);
+          }
+
+          .message-text {
+            color: rgba(255, 255, 255, 0.95);
+
+            &:hover {
+              color: white;
+            }
+          }
+
+          .mark-read-btn {
+            background-color: white;
+            color: #1dbf73;
+
+            &:hover {
+              background-color: #f0f0f0;
+            }
+          }
+        }
+
+        .message-content {
+          flex: 1;
+          min-width: 0;
+
+          .message-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            gap: 10px;
+
+            h3 {
+              font-size: 16px;
+              color: #222;
+              font-weight: 500;
+              margin: 0;
+              flex-shrink: 0;
+            }
+
+            .message-date {
+              font-size: 13px;
+              color: #888;
+              white-space: nowrap;
+              flex-shrink: 0;
+            }
+          }
+
+          .message-text {
+            font-size: 14px;
+            color: #666;
+            text-decoration: none;
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            transition: color 0.2s ease;
+
+            &:hover {
+              color: #1dbf73;
+            }
+          }
+        }
+
+        .mark-read-btn {
+          background-color: #1dbf73;
+          color: white;
+          padding: 10px 18px;
+          border: none;
+          border-radius: 6px;
+          cursor: pointer;
+          font-weight: 500;
+          font-size: 13px;
+          transition: all 0.2s ease;
+          box-shadow: 0 2px 4px rgba(29, 191, 115, 0.2);
+          white-space: nowrap;
+          margin-left: 15px;
+          flex-shrink: 0;
+
+          &:hover {
+            background-color: #18a765;
+            box-shadow: 0 4px 8px rgba(29, 191, 115, 0.3);
+            transform: translateY(-1px);
+          }
+
+          &:active {
+            transform: translateY(0);
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      width: 100%;
+      padding: 0 15px;
+
+      h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+
+      .messages-list {
+        gap: 12px;
+
+        .message-card {
+          flex-direction: column;
+          align-items: flex-start;
+          padding: 15px;
+
+          .message-content {
+            width: 100%;
+            margin-bottom: 12px;
+
+            .message-header {
+              flex-direction: column;
+              align-items: flex-start;
+              margin-bottom: 8px;
+
+              h3 {
+                font-size: 15px;
+              }
+
+              .message-date {
+                font-size: 12px;
+              }
+            }
+
+            .message-text {
+              font-size: 13px;
+            }
+          }
+
+          .mark-read-btn {
+            width: 100%;
+            margin-left: 0;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,263 @@
+.messages-page {
+  display: flex;
+  justify-content: center;
+  padding: 40px 0;
+  background: #f5f5f5;
+  min-height: 100vh;
+
+  .container {
+    width: 1200px;
+    padding: 40px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 40px;
+      color: #222;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+    }
+
+    .messages-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+
+      thead {
+        background: transparent;
+        border-bottom: 1px solid #e5e5e5;
+      }
+
+      th {
+        padding: 16px;
+        text-align: left;
+        font-weight: 600;
+        color: #222;
+        font-size: 12px;
+        text-transform: capitalize;
+        letter-spacing: 0;
+
+        &:nth-child(1) {
+          width: 25%;
+        }
+
+        &:nth-child(2) {
+          width: 35%;
+        }
+
+        &:nth-child(3) {
+          width: 20%;
+        }
+
+        &:nth-child(4) {
+          width: 20%;
+          text-align: right;
+        }
+      }
+
+      tbody tr {
+        border-bottom: 1px solid #f0f0f0;
+        transition: background-color 0.2s ease;
+
+        &:hover {
+          background-color: #fafafa;
+        }
+
+        &.active {
+          background-color: #f0f0f0;
+          font-weight: 500;
+
+          td {
+            color: #222;
+          }
+        }
+
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+
+      td {
+        padding: 16px;
+        font-size: 13px;
+        color: #666;
+        word-break: break-word;
+
+        &:nth-child(4) {
+          text-align: right;
+        }
+
+        .message-link {
+          color: #666;
+          text-decoration: none;
+          font-weight: 400;
+          transition: color 0.2s ease;
+
+          &:hover {
+            color: #222;
+          }
+        }
+
+        .mark-read-btn {
+          background: #1dbf73;
+          color: white;
+          padding: 8px 16px;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          font-weight: 600;
+          font-size: 12px;
+          transition: all 0.2s ease;
+          white-space: nowrap;
+          display: inline-block;
+
+          &:hover {
+            background: #18a765;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(29, 191, 115, 0.2);
+          }
+
+          &:active {
+            transform: translateY(0);
+          }
+
+          &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+          }
+        }
+
+        .read-status {
+          color: #1dbf73;
+          font-weight: 600;
+          font-size: 12px;
+          padding: 8px 16px;
+          background: #f0f8f5;
+          border-radius: 4px;
+          display: inline-block;
+        }
+      }
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #999;
+
+      p {
+        font-size: 16px;
+        margin: 0;
+
+        &:before {
+          content: "📭 ";
+          font-size: 48px;
+          display: block;
+          margin-bottom: 15px;
+        }
+      }
+    }
+
+    .loading-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #999;
+
+      p {
+        font-size: 16px;
+
+        &:before {
+          content: "⏳ ";
+          font-size: 32px;
+          margin-right: 10px;
+        }
+      }
+    }
+
+    .error-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #e74c3c;
+      background: #ffe6e6;
+      border-radius: 6px;
+      border: 1px solid #e74c3c;
+
+      p {
+        font-size: 16px;
+        margin: 0;
+
+        &:before {
+          content: "⚠️ ";
+          font-size: 32px;
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 20px 0;
+
+    .container {
+      width: 100%;
+      margin: 0 15px;
+      padding: 20px;
+
+      h1 {
+        font-size: 22px;
+        margin-bottom: 20px;
+      }
+
+      .messages-table {
+        font-size: 12px;
+
+        th {
+          padding: 12px;
+          font-size: 11px;
+        }
+
+        td {
+          padding: 12px;
+          font-size: 12px;
+        }
+
+        .mark-read-btn {
+          padding: 6px 12px;
+          font-size: 10px;
+        }
+
+        th:nth-child(2),
+        td:nth-child(2) {
+          display: none;
+        }
+
+        th:nth-child(1) {
+          width: 40%;
+        }
+
+        th:nth-child(3) {
+          width: 30%;
+        }
+
+        th:nth-child(4) {
+          width: 30%;
+        }
+      }
+
+      .empty-state,
+      .loading-state,
+      .error-state {
+        padding: 40px 20px;
+
+        p {
+          font-size: 14px;
+
+          &:before {
+            font-size: 32px;
+          }
+        }
+      }
+    }
+  }
+}

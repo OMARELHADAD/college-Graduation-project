@@ -1,0 +1,99 @@
+.projectCard {
+    width: 300px;
+    height: 300px;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.03); // Glass effect
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.4s ease;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    z-index: 1;
+
+    // Shine effect
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        background: linear-gradient(115deg,
+                transparent 0%,
+                rgba(255, 255, 255, 0.05) 30%,
+                rgba(255, 255, 255, 0.3) 50%,
+                rgba(255, 255, 255, 0.05) 70%,
+                transparent 100%);
+        background-size: 200% 200%;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+    }
+
+    &:hover {
+        box-shadow: 0 15px 35px rgba(78, 84, 200, 0.3);
+        z-index: 10;
+        border-color: var(--accent-color);
+
+        &::before {
+            opacity: 1;
+            animation: shine 1.5s infinite linear;
+        }
+    }
+
+    @keyframes shine {
+        0% {
+            background-position: 200% 0;
+        }
+
+        100% {
+            background-position: -200% 0;
+        }
+    }
+
+    // img styles moved to inline/jsx for structure stability with 3D transform
+    // or we can scope them to .top
+    .top img {
+        display: block;
+    }
+
+    .info {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 15px; // Reduced gap
+        padding: 10px 15px; // Reduced padding
+        background: transparent;
+
+        img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+            border: 2px solid var(--accent-color); // Replace green border
+            box-shadow: 0 0 10px rgba(78, 84, 200, 0.3);
+        }
+
+        .texts {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            h2 {
+                font-size: 14px;
+                font-weight: 500;
+                margin: 0;
+                color: var(--text-primary); // Adapt to theme text color
+            }
+
+            span {
+                font-size: 13px;
+                font-weight: 400;
+                margin: 0;
+                color: var(--text-secondary);
+            }
+        }
+    }
+}

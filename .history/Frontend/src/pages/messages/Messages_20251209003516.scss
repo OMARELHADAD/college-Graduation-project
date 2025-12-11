@@ -1,0 +1,40 @@
+.messages-page {
+  display: flex;
+  justify-content: center;
+
+  .container {
+    width: 1200px;
+    padding: 30px;
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+
+      th, td {
+        padding: 10px;
+        text-align: left;
+      }
+
+      tr.active {
+        background-color: #f0fdf4; // highlight unread messages
+      }
+
+      td:last-child {
+        button.mark-read-btn {
+          background-color: #1dbf73;
+          color: white;
+          padding: 8px 14px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          font-weight: 500;
+          transition: 0.2s ease;
+        }
+
+        button.mark-read-btn:hover {
+          background-color: #18a765;
+        }
+      }
+    }
+  }
+}

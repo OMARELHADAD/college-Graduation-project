@@ -1,0 +1,146 @@
+.featured {
+  height: 600px;
+  display: flex;
+  justify-content: center;
+  /* Background handled by .starlight-bg in App.scss */
+  color: white;
+  position: relative;
+  overflow: hidden;
+
+  .container {
+    width: 1600px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 50px;
+
+    .left {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      flex: 1;
+
+      h1 {
+        font-size: 50px;
+        font-weight: 700;
+        line-height: 1.2;
+        color: white;
+
+        i {
+          font-style: italic;
+          font-weight: 300;
+          color: white;
+        }
+      }
+
+      .search {
+        background-color: white;
+        border-radius: 50px; // Pill shape
+        display: flex;
+        align-items: center;
+        overflow: visible; // Allow glow to show
+        max-width: 650px;
+        padding: 5px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        border: 2px solid transparent;
+
+        // Focus state wrapper
+        &:focus-within {
+          box-shadow: 0 0 25px rgba(78, 84, 200, 0.4);
+          transform: scale(1.02);
+          border-color: var(--accent-color);
+        }
+
+        .searchInput {
+          display: flex;
+          align-items: center;
+          gap: 15px;
+          flex: 1;
+          padding-left: 15px;
+
+          img {
+            width: 22px;
+            height: 22px;
+            margin: 0;
+            opacity: 0.5;
+          }
+
+          input {
+            border: none;
+            outline: none;
+            flex: 1;
+            padding: 12px 0;
+            font-size: 16px;
+            background: transparent;
+
+            &::placeholder {
+              color: #999;
+            }
+          }
+        }
+
+        button {
+          width: 120px;
+          height: 48px;
+          border: none;
+          background: var(--accent-gradient);
+          color: white;
+          cursor: pointer;
+          font-weight: 600;
+          font-size: 15px;
+          border-radius: 40px; // Inner pill
+          transition: all 0.3s ease;
+          box-shadow: 0 4px 12px rgba(78, 84, 200, 0.3);
+
+          &:hover {
+            filter: brightness(1.1);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(78, 84, 200, 0.5);
+          }
+
+          &:active {
+            transform: translateY(0);
+          }
+        }
+      }
+
+      .popular {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        span {
+          width: max-content;
+        }
+
+        button {
+          width: max-content;
+          color: white;
+          border: 1px solid white;
+          padding: 5px 10px;
+          border-radius: 20px;
+          background: rgba(255, 255, 255, 0.1);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          backdrop-filter: blur(4px);
+          font-size: 14px;
+          transition: all 0.3s ease;
+
+          &:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+          }
+        }
+      }
+    }
+
+    .right {
+      height: 100%;
+
+      img {
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+  }
+}
