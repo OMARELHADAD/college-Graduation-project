@@ -7,6 +7,14 @@ const GigSchema = new Schema(
       type: String,
       required: true,
     },
+    pp: {
+      type: String,
+      required: false,
+    },
+    username: {
+      type: String,
+      required: false,
+    },
     title: {
       type: String,
       required: true,

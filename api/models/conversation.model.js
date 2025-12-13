@@ -28,6 +28,18 @@ const ConversationSchema = new Schema(
       type: String,
       required: false,
     },
+    gigId: {
+      type: String,
+      required: false,
+    },
+    gigTitle: {
+      type: String,
+      required: false,
+    },
+    gigImg: {
+      type: String,
+      required: false,
+    },
   },
   {
     timestamps: true,

@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./AiChat.scss";
+import newRequest from "../../utils/newRequest";
 
 const AiChat = () => {
     const [open, setOpen] = useState(false);
@@ -17,7 +18,7 @@ const AiChat = () => {
         scrollToBottom();
     }, [messages]);
 
-    const handleSend = (e) => {
+    const handleSend = async (e) => {
         e.preventDefault();
         if (!input.trim()) return;
 
@@ -26,21 +27,24 @@ const AiChat = () => {
         setMessages((prev) => [...prev, userMsg]);
         setInput("");
 
-        // Simulate bot typing and response
-        setTimeout(() => {
-            const botResponses = [
-                "That sounds interesting! Tell me more.",
-                "I'm here to help you navigate Skillverse.",
-                "Could you clarify what you mean specifically?",
-                "I'm just a demo bot right now, but I'm learning fast! 🚀",
-                "Great question! Let me think about that...",
-                "You can search for gigs using the search bar above.",
-                "Have you checked out our new community section?"
-            ];
-            const randomResponse = botResponses[Math.floor(Math.random() * botResponses.length)];
-            const botMsg = { id: Date.now() + 1, text: randomResponse, sender: "bot" };
-            setMessages((prev) => [...prev, botMsg]);
-        }, 1500);
+        // Add loading placeholder
+        const loadingId = Date.now() + 1;
+        setMessages((prev) => [...prev, { id: loadingId, text: "Thinking...", sender: "bot", isLoading: true }]);
+
+        try {
+            // Call backend API
+            const res = await newRequest.post("/api/ai", { message: userMsg.text });
+
+            // Replace loading with actual response
+            setMessages((prev) => prev.map(msg =>
+                msg.id === loadingId ? { ...msg, text: res.data.response, isLoading: false } : msg
+            ));
+        } catch (err) {
+            console.error(err);
+            setMessages((prev) => prev.map(msg =>
+                msg.id === loadingId ? { ...msg, text: "Sorry, I'm having trouble connecting to the AI brain right now. Please ensure the AI service is running.", isLoading: false, isError: true } : msg
+            ));
+        }
     };
 
     return (

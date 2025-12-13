@@ -73,7 +73,7 @@ const Orders = () => {
                     <img className="image" src={order.img || "/img/noavatar.jpg"} alt={order.title} />
                   </td>
                   <td className="title-cell">{order.title}</td>
-                  <td className="price-cell">${order.price}</td>
+                  <td className="price-cell">${order.price} / hr</td>
                   <td className="contact-cell">
                     <button
                       className="contact-btn"

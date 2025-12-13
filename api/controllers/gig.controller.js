@@ -3,7 +3,7 @@ import createError from "../utils/createError.js";
 
 // Create Gig
 export const createGig = async (req, res, next) => {
-    if (!req.isSeller) 
+    if (!req.isSeller)
         return next(createError(403, "Only sellers can create gigs"));
 
     try {
@@ -43,6 +43,9 @@ export const getGig = async (req, res, next) => {
         if (!gig) return next(createError(404, "Gig not found"));
         res.status(200).json(gig);
     } catch (err) {
+        if (err.name === 'CastError') {
+            return next(createError(404, "Invalid Gig ID format"));
+        }
         next(err);
     }
 };
@@ -53,7 +56,7 @@ export const getGigs = async (req, res, next) => {
 
     const filters = {
         ...(cat && { cat }),
-        ...(min || max ? { price: { ...(min && { $gte: min }), ...(max && { $lte: max }) }} : {}),
+        ...(min || max ? { price: { ...(min && { $gte: min }), ...(max && { $lte: max }) } } : {}),
         ...(search && { title: { $regex: search, $options: "i" } }),
     };
 

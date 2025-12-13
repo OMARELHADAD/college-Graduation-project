@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "./Home.scss"
 import Featured from '../../components/featured/Featured'
 import TrustedBy from '../../components/trustedBy/TrustedBy'
+import Recommended from '../../components/recommended/Recommended'
 import Slide from '../../components/Slide/Slide'
 import { cards } from '../../data'
 import CatCard from "../../components/catCard/CatCard";
@@ -40,6 +41,7 @@ const Home = () => {
       transition={{ duration: 0.5 }}
     >
       <Featured />
+      <Recommended />
       <TrustedBy />
 
       <motion.div

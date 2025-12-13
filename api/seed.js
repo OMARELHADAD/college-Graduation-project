@@ -1,139 +1,150 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import bcrypt from "bcrypt";
 import User from "./models/user.model.js";
 import Gig from "./models/gig.model.js";
+import Order from "./models/order.model.js";
+import Review from "./models/review.model.js";
+import Conversation from "./models/conversation.model.js";
+import Message from "./models/message.model.js";
 
 dotenv.config();
 
-const categories = [
-    "graphics design",
-    "digital marketing",
-    "writing translation",
-    "video animation",
-    "music audio",
-    "programming",
-    "business",
-    "lifestyle",
-    "data",
-    "photography",
-    "ai services"
-];
-
-const adjectives = ["Professional", "Stunning", "Creative", "Modern", "Unique", "High-Quality", "Expert", "Custom", "Premium", "Fast"];
-const verbs = ["create", "design", "build", "write", "edit", "develop", "record", "produce", "optimize", "manage"];
-const nouns = {
-    "graphics design": ["logo", "flyer", "banner", "business card", "illustration", "UI/UX design", "poster", "infographic"],
-    "digital marketing": ["SEO strategy", "social media plan", "email campaign", "ad setup", "content calendar", "marketing audit"],
-    "writing translation": ["blog post", "article", "translation", "resume", "cover letter", "script", "product description"],
-    "video animation": ["explainer video", "intro/outro", "logo animation", "video editing", "whiteboard animation", "3D model"],
-    "music audio": ["voice over", "jingle", "podcast editing", "mixing & mastering", "sound effects", "beat making"],
-    "programming": ["website", "mobile app", "script", "bug fix", "API integration", "database design", "Wordpress site"],
-    "business": ["business plan", "market research", "virtual assistant", "data entry", "financial consulting", "legal advice"],
-    "lifestyle": ["fitness plan", "diet plan", "online lesson", "relationship advice", "gaming coaching", "travel itinerary"],
-    "data": ["data analysis", "visualization", "scraping", "cleaning", "formatting", "database management"],
-    "photography": ["product photo", "portrait retouching", "event photography", "photo editing", "background removal"],
-    "ai services": ["AI art generation", "Midjourney prompt", "ChatGPT workflow", "AI chatbot", "custom AI model", "Stable Diffusion art"]
-};
-
-const covers = [
-    "https://images.pexels.com/photos/1762851/pexels-photo-1762851.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    "https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    "https://images.pexels.com/photos/261662/pexels-photo-261662.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    "https://images.pexels.com/photos/6954162/pexels-photo-6954162.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    "https://images.pexels.com/photos/2536965/pexels-photo-2536965.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    "https://images.pexels.com/photos/267399/pexels-photo-267399.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    "https://images.pexels.com/photos/5716001/pexels-photo-5716001.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    "https://images.pexels.com/photos/305530/pexels-photo-305530.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    "https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    "https://images.pexels.com/photos/994517/pexels-photo-994517.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    "https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    "https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=1600"
-];
-
-const fakeSellers = [
-    { username: "Alice_Designer", email: "alice@test.com", img: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=1600" },
-    { username: "Bob_Developer", email: "bob@test.com", img: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1600" },
-    { username: "Charlie_Writer", email: "charlie@test.com", img: "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=1600" },
-    { username: "Diana_Marketer", email: "diana@test.com", img: "https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=1600" },
-    { username: "Evan_Editor", email: "evan@test.com", img: "https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1600" }
-];
-
-const seed = async () => {
+const run = async () => {
     try {
+        console.log("Connection to DB...");
         await mongoose.connect(process.env.MONGO);
-        console.log("Connected to MongoDB");
+        console.log("Connected to DB!");
 
-        // Create or find fake sellers
-        const sellerIds = [];
-        for (const fake of fakeSellers) {
-            let seller = await User.findOne({ email: fake.email });
-            if (!seller) {
-                seller = new User({
-                    username: fake.username,
-                    email: fake.email,
-                    password: "password123",
-                    country: "USA",
-                    isSeller: true,
-                    desc: `I am ${fake.username}, a professional freelancer on Skillverse.`,
-                    img: fake.img
-                });
-                await seller.save();
-                console.log(`Created seller: ${fake.username}`);
+        // 1. Clear Database
+        console.log("Clearing old data...");
+        await User.deleteMany();
+        await Gig.deleteMany();
+        await Order.deleteMany();
+        await Review.deleteMany();
+        await Conversation.deleteMany();
+        await Message.deleteMany();
+        console.log("Database Cleared.");
+
+        const hash = bcrypt.hashSync("123456", 5);
+
+        // 2. Create Sellers (Team Members)
+        const teamSellers = [
+            { user: "omar_dev", email: "omar@test.com", name: "Omar Elhadad" },
+            { user: "zyad_back", email: "zyad@test.com", name: "Zyad Elhosiny" },
+            { user: "mahmoud_ai", email: "mahmoud@test.com", name: "Mahmoud Khedr" },
+            { user: "rahma_ui", email: "rahma@test.com", name: "Rahma Ahmed" },
+            { user: "zyad_ui", email: "zyad2@test.com", name: "Zyad Nagdy" }
+        ];
+
+        const savedSellers = [];
+        for (const s of teamSellers) {
+            const newUser = new User({
+                username: s.user,
+                email: s.email,
+                password: hash,
+                isSeller: true,
+                country: "Egypt",
+                desc: `I am ${s.name}, a professional freelancer on Skillverse.`,
+                img: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1600"
+            });
+            const saved = await newUser.save();
+            savedSellers.push(saved);
+        }
+        console.log("Created 5 Freelancers (Sellers).");
+
+        // 3. Create Buyers
+        const buyers = [
+            { user: "alice_buyer", email: "alice@test.com" },
+            { user: "bob_buyer", email: "bob@test.com" },
+            { user: "charlie_buyer", email: "charlie@test.com" },
+            { user: "david_buyer", email: "david@test.com" },
+            { user: "eve_buyer", email: "eve@test.com" }
+        ];
+
+        for (const b of buyers) {
+            const newUser = new User({
+                username: b.user,
+                email: b.email,
+                password: hash,
+                isSeller: false, // Buyer
+                country: "USA",
+                img: "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=1600"
+            });
+            await newUser.save();
+        }
+        console.log("Created 5 Buyers.");
+
+        // 4. Create Gigs for Sellers
+        // User requested "2 gigs in each field" for each account.
+        // We include ALL 9 categories found in the Navbar to ensure complete coverage.
+        // Categories must use spaces (not hyphens) to match frontend routing (e.g. "?cat=graphics design")
+        const categories = [
+            "graphics design",
+            "video animation",
+            "writing translation",
+            "ai services",
+            "digital marketing",
+            "music audio",
+            "programming",
+            "business",
+            "lifestyle"
+        ];
+
+        const images = [
+            "https://images.pexels.com/photos/5708069/pexels-photo-5708069.jpeg?auto=compress&cs=tinysrgb&w=1600",
+            "https://images.pexels.com/photos/5699456/pexels-photo-5699456.jpeg?auto=compress&cs=tinysrgb&w=1600",
+            "https://images.pexels.com/photos/8100784/pexels-photo-8100784.jpeg?auto=compress&cs=tinysrgb&w=1600",
+            "https://images.pexels.com/photos/6039245/pexels-photo-6039245.jpeg?auto=compress&cs=tinysrgb&w=1600",
+            "https://images.pexels.com/photos/5490778/pexels-photo-5490778.jpeg?auto=compress&cs=tinysrgb&w=1600",
+            "https://images.pexels.com/photos/3913025/pexels-photo-3913025.jpeg?auto=compress&cs=tinysrgb&w=1600",
+            "https://images.pexels.com/photos/14081711/pexels-photo-14081711.jpeg?auto=compress&cs=tinysrgb&w=1600",
+            "https://images.pexels.com/photos/3584970/pexels-photo-3584970.jpeg?auto=compress&cs=tinysrgb&w=1600"
+        ];
+
+        let gigCount = 0;
+        for (const seller of savedSellers) {
+            for (const cat of categories) {
+                // Create 2 gigs per category for this seller
+                for (let i = 1; i <= 2; i++) {
+                    await Gig.create({
+                        userId: seller._id,
+                        pp: seller.img, // Add Profile Pic
+                        username: seller.username, // Add Username
+                        title: `I will do professional ${cat} service ${i}`,
+                        desc: `This is a premium service for ${cat} offered by ${seller.username}. We provide top quality work with unlimited revisions to help your business grow.`,
+                        totalStars: Math.floor(Math.random() * 5) + 1, // 1-5 stars
+                        starNumber: Math.floor(Math.random() * 50) + 1, // 1-50 reviews
+                        cat: cat, // Use space-separated category to match Navbar links
+                        price: (Math.floor(Math.random() * 9) + 1) * 10 + 9, // e.g. 19, 29, ..., 99
+                        cover: images[Math.floor(Math.random() * images.length)],
+                        shortTitle: `Expert ${cat} ${i}`,
+                        shortDesc: "High quality, fast delivery.",
+                        deliveryTime: Math.floor(Math.random() * 5) + 1,
+                        revisionNumber: 3,
+                        features: ["Source File", "High Resolution", "Commercial Use", "24/7 Support"],
+                        sales: Math.floor(Math.random() * 100)
+                    });
+                    gigCount++;
+                }
             }
-            sellerIds.push(seller._id);
         }
 
-        // Clear existing gigs
-        await Gig.deleteMany({});
-        console.log("Cleared existing gigs");
+        console.log(`Created ${gigCount} Gigs.`);
+        console.log("SEEDING COMPLETE!");
+        console.log("------------------------------------------------");
+        console.log("FREELANCERS (Password: 123456):");
+        teamSellers.forEach(s => console.log(`- ${s.name} (${s.user}) -> ${s.email}`));
+        console.log("\nBUYERS (Password: 123456):");
+        buyers.forEach(b => console.log(`- ${b.user} -> ${b.email}`));
+        console.log("------------------------------------------------");
 
-        const gigs = [];
+        process.exit();
 
-        for (const cat of categories) {
-            const catNouns = nouns[cat] || nouns["graphics design"];
-
-            for (let i = 0; i < 15; i++) {
-                const adj = adjectives[Math.floor(Math.random() * adjectives.length)];
-                const verb = verbs[Math.floor(Math.random() * verbs.length)];
-                const noun = catNouns[Math.floor(Math.random() * catNouns.length)];
-
-                const title = `I will ${verb} a ${adj.toLowerCase()} ${noun} for you`;
-                const shortTitle = `${adj} ${noun}`;
-                const cover = covers[Math.floor(Math.random() * covers.length)];
-
-                const randomPrice = Math.floor(Math.random() * 100) + 10;
-                const randomStars = Math.floor(Math.random() * 5) + 1;
-
-                // Assign to a random fake seller
-                const randomSellerId = sellerIds[Math.floor(Math.random() * sellerIds.length)];
-
-                gigs.push({
-                    userId: randomSellerId,
-                    title: title,
-                    desc: `I am an expert in ${cat}. ${title}. I have over 5 years of experience and I guarantee high quality work. Order now!`,
-                    shortTitle: shortTitle,
-                    shortDesc: `Professional ${noun} service`,
-                    cat: cat,
-                    price: randomPrice,
-                    cover: cover,
-                    images: [cover],
-                    features: ["Source File", "High Resolution", "Commercial Use"],
-                    deliveryTime: Math.floor(Math.random() * 7) + 1,
-                    revisionNumber: Math.floor(Math.random() * 3) + 1,
-                    totalStars: randomStars * 5,
-                    starNumber: 5,
-                    sales: Math.floor(Math.random() * 100)
-                });
-            }
-        }
-
-        await Gig.insertMany(gigs);
-        console.log(`Successfully added ${gigs.length} gigs assigned to random sellers!`);
-
-        mongoose.connection.close();
     } catch (err) {
-        console.log(err);
+        console.log("Seeding Error:", err);
+        process.exit(1);
     }
 };
 
-seed();
+run();

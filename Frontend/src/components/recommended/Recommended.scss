@@ -1,0 +1,84 @@
+.recommended {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    padding: 40px 0; // Reduced padding
+    color: white;
+    position: relative;
+    overflow: hidden;
+
+    /* Subtle cosmic glow */
+    &::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(78, 84, 200, 0.1) 0%, transparent 70%);
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .container {
+        width: 1400px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+
+        h1 {
+            margin-bottom: 25px;
+            font-size: 28px;
+            font-weight: 700;
+            text-align: left;
+
+            /* Gradient Text */
+            background: linear-gradient(90deg, #ff00cc, #333399, #00d2ff);
+            background-size: 200% auto;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+
+            animation: shine 5s linear infinite;
+        }
+
+        // Enhance cards specifically in this section
+        .projectCard {
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            background: rgba(255, 255, 255, 0.05) !important;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+
+            &:hover {
+                transform: translateY(-5px);
+                border-color: #00d2ff !important;
+                box-shadow: 0 10px 40px rgba(0, 210, 255, 0.3);
+
+                .info {
+                    .texts h2 {
+                        color: #00d2ff !important;
+                    }
+                }
+            }
+
+            .info {
+                background: transparent !important;
+
+                .texts {
+                    h2 {
+                        color: #e0e0e0 !important;
+                        transition: color 0.3s;
+                    }
+
+                    span {
+                        color: #aaa !important;
+                    }
+                }
+            }
+        }
+    }
+
+    @keyframes shine {
+        to {
+            background-position: 200% center;
+        }
+    }
+}

@@ -5,13 +5,14 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import { Navigation } from 'swiper/modules'
 
-const Slide = ({ children, slidesToShow = 4 }) => {
+const Slide = ({ children, slidesToShow = 4, arrows = true }) => {
     return (
         <div className="slide">
             <div className="container">
                 <Swiper
-                    modules={[Navigation]}
-                    navigation
+                    modules={arrows ? [Navigation] : []}
+                    navigation={arrows}
+                    autoplay={false} // Explicitly disable autoplay
                     slidesPerView={slidesToShow}
                     spaceBetween={20}
                 >

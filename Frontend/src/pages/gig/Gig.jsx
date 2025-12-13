@@ -2,13 +2,35 @@ import React from "react";
 import "./Gig.scss";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import newRequest from "../../utils/newRequest";
 import Reviews from "../../components/reviews/Reviews";
 
 function Gig() {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+  const handleContact = async () => {
+    const sellerId = userId;
+    const buyerId = currentUser._id;
+    const gigId = id; // 'id' from useParams is the gigId
+    const conversationId = sellerId + buyerId + gigId;
+
+    try {
+      const res = await newRequest.get(`/api/conversations/single/${conversationId}`);
+      navigate(`/message/${res.data.id}`);
+    } catch (err) {
+      if (err.response.status === 404) {
+        const res = await newRequest.post(`/api/conversations/`, {
+          to: userId,
+          gigId: gigId, // Pass gigId to create logic
+        });
+        navigate(`/message/${res.data.id}`);
+      }
+    }
+  };
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["gig", id],
@@ -100,9 +122,7 @@ function Gig() {
               </div>
             )}
 
-            <Link to={`/messages`}>
-              <button>Contact Me</button>
-            </Link>
+            <button onClick={handleContact} style={{ cursor: 'pointer' }}>Contact Me</button>
           </div>
         </div>
 
@@ -143,7 +163,7 @@ function Gig() {
     <div className="right">
       <div className="price">
         <h3>{data?.shortTitle}</h3>
-        <h2>$ {data?.price}</h2>
+        <h2>$ {data?.price} / hr</h2>
       </div>
 
       <p>{data?.shortDesc}</p>

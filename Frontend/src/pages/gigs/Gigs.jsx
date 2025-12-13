@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import newRequest from "../../utils/newRequest";
 import { useLocation } from "react-router-dom";
 
+
 function Gigs() {
   const [sort, setSort] = useState("sales");
   const [open, setOpen] = useState(false);
@@ -53,6 +54,8 @@ function Gigs() {
         <span className="breadcrumbs">Skillverse {'>'} {title} {'>'}</span>
         <h1 style={{ textTransform: "capitalize" }}>{title}</h1>
         <p>Explore the boundaries of art and technology with Skillverse's {title}</p>
+
+
 
         <div className="menu">
           <div className="left">

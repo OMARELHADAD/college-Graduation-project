@@ -1,4 +1,5 @@
 import express from "express";
+
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRoute from "./routes/user.route.js";
@@ -8,8 +9,10 @@ import conversationRoute from "./routes/conversation.route.js";
 import messageRoute from "./routes/message.route.js";
 import reviewRoute from "./routes/review.route.js";
 import authRoute from "./routes/auth.route.js";
+import aiRoute from "./routes/ai.route.js"; // New Import
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import recommendationRoute from "./routes/recommendation.route.js";
 
 
 
@@ -43,6 +46,8 @@ app.use("/api/orders", orderRoute);
 app.use("/api/conversations", conversationRoute);
 app.use("/api/messages", messageRoute);
 app.use("/api/reviews", reviewRoute);
+app.use("/api/ai", aiRoute); // New Route
+app.use("/api/recommendations", recommendationRoute); // New Route
 
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;
