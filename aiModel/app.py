@@ -4,8 +4,18 @@ from flask import Flask, render_template, request, jsonify
 from dotenv import load_dotenv
 from openai import OpenAI
 
-load_dotenv("environment.env")
-load_dotenv() # Fallback to standard .env
+# Robustly load environment.env using absolute path
+current_dir = os.path.dirname(os.path.abspath(__file__))
+env_path = os.path.join(current_dir, "environment.env")
+
+# Try loading from specific path first
+if os.path.exists(env_path):
+    load_dotenv(env_path)
+    print(f"Loaded environment from: {env_path}")
+else:
+    # Fallback to standard .env or system env vars
+    load_dotenv() 
+    print("Warning: environment.env not found, using default .env or system variables")
 
 from pymongo import MongoClient
 import bson.json_util
@@ -69,6 +79,9 @@ Your Goal:
 - Assist users by querying the LIVE data provided to you in the context.
 - If a user asks "Who are the designers?", look at the 'available_gigs' or 'platform_users'.
 - If a user asks "What are the latest jobs?", look at 'available_gigs'.
+- **CRITICAL:** When recommending a gig, YOU MUST use Markdown links relative to the web app.
+  Format: `[Gig Title](/gig/GIG_ID)`
+  Example: `You should check out [Logo Design for Startups](/gig/654321)`
 - Be helpful, professional, and aware that you see real-time information.
 
 LIMITATION: You can only see the data provided in your context window (top 10 items usually).
@@ -128,7 +141,11 @@ def chat():
             print(f"Success with model: {model}")
             break # Stop loop on success
         except Exception as e:
-            print(f"Failed with {model}: {e}")
+            error_msg = str(e)
+            if "401" in error_msg:
+                 print(f"!!! AUTHENTICATION ERROR with {model}: Invalid API Key. Please check environment.env !!!")
+            else:
+                 print(f"Failed with {model}: {e}")
             last_error = e
             continue # Try next model
 

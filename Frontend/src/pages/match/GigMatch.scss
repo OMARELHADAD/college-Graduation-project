@@ -1,0 +1,35 @@
+.gig-match-page {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background: #0d0d2b;
+    overflow: hidden;
+
+    .title {
+        position: absolute;
+        top: 100px; // below navbar
+        left: 50%;
+        transform: translateX(-50%);
+        color: white;
+        font-size: 3rem;
+        z-index: 10;
+        pointer-events: none;
+        text-shadow: 0 0 20px rgba(78, 84, 200, 0.5);
+    }
+
+    .subtitle {
+        position: absolute;
+        top: 160px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #a5a5a5;
+        z-index: 10;
+        pointer-events: none;
+    }
+
+    canvas {
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+}

@@ -1,0 +1,36 @@
+.skeleton {
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    animation: shimmer 1.5s infinite linear;
+    background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+    background-size: 800px 104px;
+    position: relative;
+    overflow: hidden;
+
+    &.circle {
+        border-radius: 50%;
+    }
+
+    &.custom {
+        // inherits width/height from inline style
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -468px 0;
+    }
+
+    100% {
+        background-position: 468px 0;
+    }
+}
+
+// Dark mode support if applicable
+.dark-mode {
+    .skeleton {
+        background-color: #2c2c2c;
+        background: linear-gradient(to right, #2c2c2c 8%, #3a3a3a 18%, #2c2c2c 33%);
+    }
+}

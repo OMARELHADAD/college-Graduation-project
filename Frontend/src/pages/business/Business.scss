@@ -309,7 +309,8 @@
     // Team Section
     .team {
         padding: 100px 0;
-        background: linear-gradient(180deg, var(--bg-primary) 0%, rgba(78, 84, 200, 0.05) 50%, var(--bg-primary) 100%);
+        // Sharper gradient for better contrast in light mode
+        background: linear-gradient(180deg, var(--bg-primary) 0%, rgba(78, 84, 200, 0.1) 50%, var(--bg-primary) 100%);
 
         .container {
             width: 1400px;
@@ -333,24 +334,25 @@
 
             .team-card {
                 flex: 0 1 300px;
-                background: rgba(255, 255, 255, 0.03);
+                background: #ffffff; // Force white in light mode
                 border-radius: 20px;
                 padding: 30px;
                 text-align: center;
-                border: 1px solid rgba(255, 255, 255, 0.05);
-                backdrop-filter: blur(10px);
-                transition: transform 0.3s ease;
+                border: 1px solid rgba(0, 0, 0, 0.1); // Visible border
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15); // Much stronger shadow
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
                 min-width: 280px;
 
                 &:hover {
-                    background: rgba(255, 255, 255, 0.08);
+                    transform: translateY(-10px);
+                    box-shadow: 0 30px 80px rgba(78, 84, 200, 0.25);
                     border-color: var(--accent-color);
                 }
 
                 .avatar {
                     width: 120px;
                     height: 120px;
-                    border-radius: 50%;
+                    border-radius: 20px; // Squircle
                     margin: 0 auto 20px;
                     background: var(--accent-gradient);
                     display: flex;
@@ -360,12 +362,13 @@
                     color: white;
                     font-weight: 700;
                     box-shadow: 0 10px 30px rgba(78, 84, 200, 0.3);
+                    overflow: hidden;
                 }
 
                 h3 {
                     font-size: 24px;
                     margin-bottom: 5px;
-                    color: white;
+                    color: #333; // Force dark text
                 }
 
                 p {
@@ -377,9 +380,30 @@
                 }
 
                 .role-desc {
-                    color: var(--text-secondary);
+                    color: #666; // Force gray text
                     font-size: 14px;
                     line-height: 1.5;
+                }
+            }
+        }
+    }
+
+    // Dark Mode Override (Nested inside .business usually, but since this is SCSS we can do this)
+    :global(body.dark-mode) & {
+        .team {
+            background: linear-gradient(180deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+
+            .team-card {
+                background: rgba(255, 255, 255, 0.05); // Transparent in dark mode
+                border-color: rgba(255, 255, 255, 0.1);
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+
+                h3 {
+                    color: white;
+                }
+
+                .role-desc {
+                    color: #ccc;
                 }
             }
         }

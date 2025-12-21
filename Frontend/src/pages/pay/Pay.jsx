@@ -22,7 +22,12 @@ const Pay = () => {
         navigate("/success", { state: { order: res.data } });
       } catch (err) {
         console.log(err);
-        setError("Something went wrong. Please try again.");
+        setError(
+          err.response?.data?.message ||
+          err.response?.data ||
+          err.message ||
+          "Something went wrong. Please try again."
+        );
         setLoading(false);
       }
     }, 2000);

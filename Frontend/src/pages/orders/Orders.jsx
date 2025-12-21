@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Orders.scss";
 import { useQuery } from "@tanstack/react-query";
 import newRequest from "../../utils/newRequest";
+import Skeleton from "../../components/skeleton/Skeleton";
 
 const Orders = () => {
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -37,11 +38,30 @@ const Orders = () => {
     <div className="orders">
       {isLoading ? (
         <div className="container">
-          <div className="empty-state">
-            <p>⏳ Loading your orders...</p>
-          </div>
+          <h1>Orders</h1>
+          <table>
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Contact</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Array(5).fill().map((_, i) => (
+                <tr key={i}>
+                  <td><Skeleton width={50} height={50} /></td>
+                  <td><Skeleton width="80%" height={20} /></td>
+                  <td><Skeleton width={80} height={20} /></td>
+                  <td><Skeleton width={50} height={40} /></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       ) : error ? (
+
         <div className="container">
           <div className="empty-state error">
             <p>❌ Error loading orders. Please try again.</p>

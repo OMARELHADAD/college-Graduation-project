@@ -1,4 +1,5 @@
 import "./app.scss";
+import { SocketContextProvider } from "./context/SocketContext";
 import { createBrowserRouter, Outlet, RouterProvider, useLocation } from "react-router-dom";
 import React from "react";
 import { AnimatePresence } from "framer-motion";
@@ -31,19 +32,25 @@ import Business from "./pages/business/Business";
 function App() {
   const queryClient = new QueryClient();
 
+
+
+
+
   const Layout = () => {
     return (
       <DarkModeProvider>
-        <div className="app">
-          <QueryClientProvider client={queryClient}>
-            <Navbar />
-            <AnimatePresence mode="wait">
-              <Outlet />
-            </AnimatePresence>
-            <Footer />
-            <AiChat />
-          </QueryClientProvider>
-        </div>
+        <SocketContextProvider>
+          <div className="app">
+            <QueryClientProvider client={queryClient}>
+              <Navbar />
+              <AnimatePresence mode="wait">
+                <Outlet />
+              </AnimatePresence>
+              <Footer />
+              <AiChat />
+            </QueryClientProvider>
+          </div>
+        </SocketContextProvider>
       </DarkModeProvider>
     );
   };
@@ -148,6 +155,7 @@ function App() {
           {
             path: "/terms", element: <Success />
           },
+
           {
             path: "/become-seller", element: <BecomeSeller /> // Real component
           },

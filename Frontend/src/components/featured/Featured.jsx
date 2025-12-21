@@ -6,10 +6,48 @@ import { motion } from "framer-motion";
 
 function Featured() {
   const [input, setInput] = useState("");
+  const [isListening, setIsListening] = useState(false);
   const navigate = useNavigate();
 
+  // Voice Recognition Logic
+  const handleVoiceSearch = () => {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+      alert("Browser doesn't support Speech API");
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = 'en-US';
+    recognition.continuous = false; // Stop after one sentence
+
+    recognition.onstart = () => {
+      setIsListening(true);
+      setInput("Listening...");
+    };
+
+    recognition.onend = () => {
+      setIsListening(false);
+    };
+
+    recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript;
+      setInput(transcript);
+      // Optional: Auto-search after voice input
+      // navigate(`/gigs?search=${transcript}`); 
+    };
+
+    if (isListening) {
+      recognition.stop();
+    } else {
+      recognition.start();
+    }
+  };
+
+
   const handleSubmit = () => {
-    if (input.trim()) {
+    if (input.trim() && input !== "Listening...") {
       navigate(`/gigs?search=${input}`);
     }
   };
@@ -64,6 +102,27 @@ function Featured() {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={handleKeyPress}
               />
+              {/* Voice Button */}
+              <button
+                className={`voice-btn ${isListening ? 'listening' : ''}`}
+                onClick={handleVoiceSearch}
+                title="Voice Search"
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  marginRight: '10px',
+                  fontSize: '20px',
+                  color: isListening ? '#ff4757' : 'gray',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  height: '100%',
+                  animation: isListening ? 'pulse 1.5s infinite' : 'none'
+                }}
+              >
+                {isListening ? '🛑' : '🎙️'}
+              </button>
             </div>
             <motion.button
               onClick={handleSubmit}

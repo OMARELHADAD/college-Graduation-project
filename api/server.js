@@ -62,9 +62,42 @@ app.use((err, req, res, next) => {
 });
 
 
-app.listen(8800, () => {
+import { Server } from "socket.io";
+import http from "http";
+
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: ["http://localhost:5173", "http://localhost:5175"],
+    methods: ["GET", "POST"],
+    credentials: true,
+  },
+});
+
+io.on("connection", (socket) => {
+  // console.log("A user connected: " + socket.id);
+
+  socket.on("join_room", (roomId) => {
+    socket.join(roomId);
+    console.log(`User ${socket.id} joined room: ${roomId}`);
+  });
+
+  socket.on("send_message", (data) => {
+    // Broadcast to everyone in the room INCLUDING sender (for simplicity in this app's logic)
+    // or typically to others. existing app might assume optimistic update.
+    // Let's broadcast to the room.
+    const { conversationId } = data;
+    io.to(conversationId).emit("receive_message", data);
+  });
+
+  socket.on("disconnect", () => {
+    // console.log("User disconnected");
+  });
+});
+
+server.listen(8800, () => {
   connect();
-  console.log("backend server is running!");
+  console.log("Backend server is running with Socket.io!");
 });
 
 

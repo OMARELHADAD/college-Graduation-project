@@ -133,6 +133,37 @@
             }
         }
 
+        // Suggestion Chips
+        .chips {
+            padding: 0.75rem 1.25rem;
+            display: flex;
+            gap: 0.5rem;
+            overflow-x: auto;
+            background: var(--bg-primary, #f9fafb);
+            border-bottom: 1px solid var(--border-color, #eee);
+
+            &::-webkit-scrollbar {
+                height: 4px;
+            }
+
+            button {
+                white-space: nowrap;
+                padding: 0.4rem 0.8rem;
+                border-radius: 20px;
+                border: 1px solid #4e54c8;
+                background: rgba(78, 84, 200, 0.1);
+                color: #4e54c8;
+                font-size: 0.8rem;
+                cursor: pointer;
+                transition: all 0.2s;
+
+                &:hover {
+                    background: #4e54c8;
+                    color: white;
+                }
+            }
+        }
+
         // Messages Area
         .messages {
             flex: 1;

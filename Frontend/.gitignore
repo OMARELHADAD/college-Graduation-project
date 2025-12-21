@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Team Files
+our team*
+Our Team*
+public/img/teamImages

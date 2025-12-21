@@ -16,31 +16,31 @@ const Business = () => {
         {
             name: "Omar Elhadad",
             role: "Front-End Developer",
-            initials: "OE",
+            img: "/img/teamImages/omarElhadad.jpg",
             desc: "Crafting immersive user experiences and pixel-perfect interfaces with React."
         },
         {
             name: "Zyad Elhosiny",
             role: "Back-End Developer",
-            initials: "ZE",
+            img: "/img/teamImages/zyadElhoseiny.jpg",
             desc: "Architecting robust, scalable server solutions and secure API ecosystems."
         },
         {
             name: "Mahmoud Khedr",
             role: "Data Analyst & AI",
-            initials: "MK",
+            img: "/img/teamImages/mahmoudKhedr.jpg",
             desc: "Powering intelligent features and insights with advanced machine learning models."
         },
         {
             name: "Rahma Ahmed",
             role: "UI & UX Designer",
-            initials: "RA",
+            img: "/img/teamImages/rahmaAhmed.jpg",
             desc: "Designing intuitive, user-centric flows and beautiful visual systems."
         },
         {
             name: "Zyad Nagdy",
             role: "UI & UX Designer",
-            initials: "ZN",
+            img: "/img/teamImages/zyadNagdy.jpg",
             desc: "Creating accessible, engaging digital interactions and brand aesthetics."
         },
     ];
@@ -199,7 +199,9 @@ const Business = () => {
                                 transition={{ delay: i * 0.1, duration: 0.3 }}
                                 viewport={{ once: true }}
                             >
-                                <div className="avatar">{member.initials}</div>
+                                <div className="avatar">
+                                    <img src={member.img} alt={member.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                </div>
                                 <h3>{member.name}</h3>
                                 <p>{member.role}</p>
                                 <div className="role-desc">{member.desc}</div>
@@ -219,7 +221,9 @@ const Business = () => {
                                 transition={{ delay: (i + 3) * 0.1, duration: 0.3 }}
                                 viewport={{ once: true }}
                             >
-                                <div className="avatar">{member.initials}</div>
+                                <div className="avatar">
+                                    <img src={member.img} alt={member.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                </div>
                                 <h3>{member.name}</h3>
                                 <p>{member.role}</p>
                                 <div className="role-desc">{member.desc}</div>

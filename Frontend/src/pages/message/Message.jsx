@@ -1,13 +1,15 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import newRequest from "../../utils/newRequest";
 import "./Message.scss";
+import { useSocket } from "../../context/SocketContext";
 
 const Message = () => {
   const { id } = useParams();
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   const queryClient = useQueryClient();
+  const socket = useSocket();
 
   // Fetch conversation with enriched data (gig info + isClient)
   const { isLoading: isLoadingConv, data: conversation } = useQuery({
@@ -24,6 +26,29 @@ const Message = () => {
       newRequest.get(`/api/messages/${id}`).then((res) => res.data),
     enabled: !!id,
   });
+
+  // Real-time listener
+  useEffect(() => {
+    if (!socket) return;
+
+    socket.emit("join_room", id);
+
+    const handleReceiveMessage = (data) => {
+      queryClient.setQueryData(["messages", id], (oldData) => {
+        if (!oldData) return [data];
+        // Check if message already exists (optimistic update or duplicate prevention)
+        if (oldData.some(m => m._id === data._id)) return oldData;
+        return [...oldData, data];
+      });
+    };
+
+    socket.on("receive_message", handleReceiveMessage);
+
+    return () => {
+      socket.off("receive_message", handleReceiveMessage);
+    };
+  }, [socket, id, queryClient]);
+
 
   // Determine other user details
   const otherUserId = conversation
@@ -43,8 +68,12 @@ const Message = () => {
     mutationFn: (message) => {
       return newRequest.post(`/api/messages`, message);
     },
-    onSuccess: () => {
+    onSuccess: (savedMessage) => {
       queryClient.invalidateQueries({ queryKey: ["messages", id] });
+      // Emit socket event to others
+      if (socket) {
+        socket.emit("send_message", { ...savedMessage, conversationId: id });
+      }
     },
   });
 

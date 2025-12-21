@@ -30,11 +30,11 @@ const run = async () => {
 
         // 2. Create Sellers (Team Members)
         const teamSellers = [
-            { user: "omar_dev", email: "omar@test.com", name: "Omar Elhadad" },
-            { user: "zyad_back", email: "zyad@test.com", name: "Zyad Elhosiny" },
-            { user: "mahmoud_ai", email: "mahmoud@test.com", name: "Mahmoud Khedr" },
-            { user: "rahma_ui", email: "rahma@test.com", name: "Rahma Ahmed" },
-            { user: "zyad_ui", email: "zyad2@test.com", name: "Zyad Nagdy" }
+            { user: "omar_dev", email: "omar@test.com", name: "Omar Elhadad", img: "/img/teamImages/omarElhadad.jpg" },
+            { user: "zyad_back", email: "zyad@test.com", name: "Zyad Elhosiny", img: "/img/teamImages/zyadElhoseiny.jpg" },
+            { user: "mahmoud_ai", email: "mahmoud@test.com", name: "Mahmoud Khedr", img: "/img/teamImages/mahmoudKhedr.jpg" },
+            { user: "rahma_ui", email: "rahma@test.com", name: "Rahma Ahmed", img: "/img/teamImages/rahmaAhmed.jpg" },
+            { user: "zyad_ui", email: "zyad2@test.com", name: "Zyad Nagdy", img: "/img/teamImages/zyadNagdy.jpg" }
         ];
 
         const savedSellers = [];
@@ -46,7 +46,7 @@ const run = async () => {
                 isSeller: true,
                 country: "Egypt",
                 desc: `I am ${s.name}, a professional freelancer on Skillverse.`,
-                img: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                img: s.img || "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1600"
             });
             const saved = await newUser.save();
             savedSellers.push(saved);

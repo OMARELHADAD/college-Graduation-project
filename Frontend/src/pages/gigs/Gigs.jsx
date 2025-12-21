@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./Gigs.scss";
 import GigCard from "../../components/gigCard/GigCard";
+import Skeleton from "../../components/skeleton/Skeleton";
 import { useQuery } from "@tanstack/react-query";
 import newRequest from "../../utils/newRequest";
 import { useLocation } from "react-router-dom";
-
 
 function Gigs() {
   const [sort, setSort] = useState("sales");
@@ -56,7 +56,6 @@ function Gigs() {
         <p>Explore the boundaries of art and technology with Skillverse's {title}</p>
 
 
-
         <div className="menu">
           <div className="left">
             <span>Budget</span>
@@ -88,7 +87,21 @@ function Gigs() {
 
         <div className="cards">
           {isLoading || !data ? (
-            "loading..."
+            Array(8).fill().map((_, i) => (
+              <div className="gigCard skeleton-card" key={i} style={{ width: 324, display: 'flex', flexDirection: 'column', gap: 10 }}>
+                <Skeleton width="100%" height={200} />
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <Skeleton type="circle" width={26} height={26} />
+                  <Skeleton width={120} height={16} />
+                </div>
+                <Skeleton width="100%" height={24} />
+                <Skeleton width="60%" height={16} />
+                <div style={{ marginTop: 'auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <Skeleton width={30} height={20} />
+                  <Skeleton width={80} height={24} />
+                </div>
+              </div>
+            ))
           ) : error ? (
             "Something went wrong!"
           ) : Array.isArray(data) && data.length > 0 ? (
