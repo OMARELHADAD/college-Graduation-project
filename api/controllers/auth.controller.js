@@ -44,7 +44,7 @@ export const login = async (req, res, next) => {
         secure: false,          // لازم false عشان localhost
       })
       .status(200)
-      .send(info);
+      .send({ ...info, token });
 
   } catch (error) {
     next(error);

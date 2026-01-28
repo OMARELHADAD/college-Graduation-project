@@ -1,8 +1,37 @@
 import React from "react";
 import "./BecomeSeller.scss";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import newRequest from "../../utils/newRequest";
 
 const BecomeSeller = () => {
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    const navigate = useNavigate();
+
+    const handleBecomeSeller = async () => {
+        if (!currentUser) {
+            navigate("/register");
+            return;
+        }
+
+        if (currentUser.isSeller) {
+            navigate("/mygigs");
+            return;
+        }
+
+        try {
+            const res = await newRequest.put(`/api/users/${currentUser._id}`, {
+                isSeller: true,
+            });
+
+            // Update local storage
+            localStorage.setItem("currentUser", JSON.stringify(res.data));
+
+            navigate("/add");
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
     return (
         <div className="become-seller">
             {/* HERO SECTION */}
@@ -11,9 +40,9 @@ const BecomeSeller = () => {
                     <div className="left">
                         <h1>Work Your Way,<br /> <span className="highlight">Rule the Galaxy.</span></h1>
                         <p>Join our growing community of freelancers. Share your skills, earn money, and help businesses scale across the universe.</p>
-                        <Link to="/register">
-                            <button className="cta-btn">Become a Seller</button>
-                        </Link>
+                        <button className="cta-btn" onClick={handleBecomeSeller}>
+                            {currentUser?.isSeller ? "Go to Dashboard" : "Become a Seller"}
+                        </button>
                     </div>
                     <div className="right">
                         {/* 3D-like floating elements mockup */}

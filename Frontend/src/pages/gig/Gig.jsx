@@ -96,7 +96,7 @@ function Gig() {
         className="slider"
       >
         {data.images.map((img) => (
-          <img key={img} src={img} alt="gig" />
+          <img key={img} src={img || "/img/noavatar.jpg"} alt="gig" onError={(e) => { e.target.src = "/img/noavatar.jpg" }} />
         ))}
       </Carousel>
     )}

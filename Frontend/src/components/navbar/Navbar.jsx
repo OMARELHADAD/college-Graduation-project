@@ -127,6 +127,9 @@ function Navbar() {
                                             </Link>
                                         </>
                                     )}
+                                    <Link className="link" to="/wishlist">
+                                        Wishlist
+                                    </Link>
                                     <Link className="link" to="/orders">
                                         Orders
                                     </Link>

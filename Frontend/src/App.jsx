@@ -29,6 +29,8 @@ import Success from "./pages/success/Success";
 import BecomeSeller from "./pages/becomeSeller/BecomeSeller";
 import Community from "./pages/community/Community";
 import Business from "./pages/business/Business";
+import Wishlist from "./pages/wishlist/Wishlist";
+import Profile from "./pages/profile/Profile";
 function App() {
   const queryClient = new QueryClient();
 
@@ -158,6 +160,12 @@ function App() {
 
           {
             path: "/become-seller", element: <BecomeSeller /> // Real component
+          },
+          {
+            path: "/wishlist", element: <Wishlist />
+          },
+          {
+            path: "/profile/:id", element: <Profile />
           },
         ],
       },

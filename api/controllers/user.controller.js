@@ -12,6 +12,57 @@ export const deleteUser = async (req, res, next) => {
   res.status(200).send("deleted.");
 };
 
+export const updateUser = async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+
+  if (req.userId !== user._id.toString()) {
+    return next(createError(403, "You can update only your account!"));
+  }
+
+  const updatedUser = await User.findByIdAndUpdate(
+    req.params.id,
+    { $set: req.body },
+    { new: true }
+  );
+
+  res.status(200).send(updatedUser);
+};
+
+export const saveGig = async (req, res, next) => {
+  const gigId = req.body.gigId;
+
+  try {
+    const user = await User.findById(req.userId);
+    const isSaved = user.savedGigs.includes(gigId);
+
+    if (isSaved) {
+      await User.findByIdAndUpdate(req.userId, {
+        $pull: { savedGigs: gigId },
+      });
+      res.status(200).send("Gig removed from wishlist.");
+    } else {
+      await User.findByIdAndUpdate(req.userId, {
+        $push: { savedGigs: gigId },
+      });
+      res.status(200).send("Gig saved to wishlist.");
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const getWishlist = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.userId);
+    // Find all gigs whose IDs are in the user's savedGigs array
+    const savedGigs = await Gig.find({ _id: { $in: user.savedGigs } });
+
+    res.status(200).send(savedGigs);
+  } catch (err) {
+    next(err);
+  }
+};
+
 export const getUser = async (req, res, next) => {
   const user = await User.findById(req.params.id);
 

@@ -1,0 +1,27 @@
+.wishlist {
+    .container {
+        padding: 30px 0px;
+
+        .breadcrumbs {
+            font-weight: 300;
+            font-size: 13px;
+            color: #555;
+        }
+
+        h1 {
+            margin-top: 20px;
+        }
+
+        p {
+            color: #999;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+
+        .cards {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+    }
+}

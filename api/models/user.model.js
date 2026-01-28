@@ -33,6 +33,10 @@ const userSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  savedGigs: {
+    type: [String],
+    default: [],
+  },
 }, {
   timestamps: true,
 });

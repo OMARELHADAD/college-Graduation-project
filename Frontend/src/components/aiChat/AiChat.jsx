@@ -1,4 +1,4 @@
-ؤي import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./AiChat.scss";
 import newRequest from "../../utils/newRequest";
 

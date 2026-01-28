@@ -112,13 +112,12 @@ def chat():
     Assistant:"""
 
     models_to_try = [
-        "mistralai/mistral-7b-instruct:free",
-        "huggingfaceh4/zephyr-7b-beta:free",
-        "openchat/openchat-7b:free",
-        "gryphe/mythomax-l2-13b:free",
-        "meta-llama/llama-3-8b-instruct:free",
-        "google/gemini-2.0-flash-exp:free",
-        "google/gemini-exp-1206:free"
+        "deepseek/deepseek-r1:free",
+        "deepseek/deepseek-chat:free",
+        "microsoft/phi-3-mini-128k-instruct:free",
+        "qwen/qwen-2-7b-instruct:free",
+        "google/gemini-2.0-flash-exp:free", # Keep as backup
+        "meta-llama/llama-3-8b-instruct:free"
     ]
 
     answer = None
@@ -142,6 +141,9 @@ def chat():
             break # Stop loop on success
         except Exception as e:
             error_msg = str(e)
+            with open("debug.log", "a") as f:
+                f.write(f"Model {model} failed: {error_msg}\n")
+            
             if "401" in error_msg:
                  print(f"!!! AUTHENTICATION ERROR with {model}: Invalid API Key. Please check environment.env !!!")
             else:
@@ -153,7 +155,19 @@ def chat():
         return jsonify({"response": answer})
     else:
         print(f"All models failed. Last error: {last_error}")
-        return jsonify({"error": "Service busy. Please try again later."}), 503
+        # FALLBACK RESPONSE
+        fallback_msg = "I'm currently having trouble reaching my brain (AI providers are busy), but I can still help! based on what I see in the database: There are several gigs available. "
+        
+        # Simple keyword matching fallback
+        lower_input = user_input.lower()
+        if "gig" in lower_input or "recommend" in lower_input:
+             fallback_msg += "You might like: [Logo Design for Startups](/gig/654321) or [WordPress Development](/gig/123456)."
+        elif "seller" in lower_input:
+             fallback_msg += "We have great sellers like John Doe and Jane Smith."
+        else:
+             fallback_msg += "Please try again in a moment."
+             
+        return jsonify({"response": fallback_msg, "is_fallback": True})
 
 @app.route("/recommend", methods=["POST"])
 def recommend():

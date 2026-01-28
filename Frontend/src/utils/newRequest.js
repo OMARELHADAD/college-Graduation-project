@@ -8,7 +8,18 @@ const newRequest = axios.create({
 // Add token to every request
 newRequest.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("authToken");
+    let token = localStorage.getItem("authToken");
+
+    // Fallback: Try decoding currentUser if authToken is missing
+    if (!token) {
+      try {
+        const user = JSON.parse(localStorage.getItem("currentUser"));
+        if (user?.token) token = user.token;
+      } catch (e) {
+        // ignore
+      }
+    }
+
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

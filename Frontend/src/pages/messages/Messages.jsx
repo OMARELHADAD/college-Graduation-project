@@ -48,6 +48,7 @@ const Messages = () => {
   };
 
   const isConversationUnread = (c) => {
+    if (!currentUser) return false;
     return (currentUser.isSeller && !c.readBySeller) ||
       (!currentUser.isSeller && !c.readByBuyer);
   };
@@ -61,6 +62,7 @@ const Messages = () => {
 
   const getFilteredConversations = () => {
     if (!data) return [];
+    if (!currentUser) return [];
     if (!currentUser.isSeller) return data; // Buyers just see all chats
 
     if (activeTab === "clients") {
@@ -72,15 +74,32 @@ const Messages = () => {
 
   const filteredData = getFilteredConversations();
 
-  if (isLoading) return <div className="messages-page loading">Loading...</div>;
-  if (error) return <div className="messages-page error">Error loading messages</div>;
+  if (isLoading) return (
+    <div className="messages-page">
+      <div className="container text-center" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
+        <div className="loading" style={{ width: '40px', height: '40px', border: '4px solid #f3f3f3', borderTop: '4px solid #4e54c8', borderRadius: '50%' }}></div>
+        <h2>Loading messages...</h2>
+      </div>
+    </div>
+  );
+  if (error) {
+    if (error.response?.status === 401) {
+      return (
+        <div className="messages-page error" style={{ flexDirection: 'column', gap: '10px' }}>
+          <p>🔒 You need to be logged in to verify messages.</p>
+          <Link to="/login" className="link" style={{ color: '#4e54c8', fontWeight: 'bold' }}>Go to Login</Link>
+        </div>
+      );
+    }
+    return <div className="messages-page error">Error loading messages. Is the server running?</div>;
+  }
 
   return (
     <div className="messages-page">
       <div className="container">
         <div className="header">
           <h1>Messages</h1>
-          {currentUser.isSeller && (
+          {currentUser?.isSeller && (
             <div className="tabs">
               <button
                 className={activeTab === "clients" ? "active" : ""}
@@ -112,7 +131,7 @@ const Messages = () => {
             >
               <thead>
                 <tr>
-                  <th>{currentUser.isSeller ? "User" : "Freelancer"}</th>
+                  <th>{currentUser?.isSeller ? "User" : "Freelancer"}</th>
                   <th>Gig</th>
                   <th>Last Message</th>
                   <th>Date</th>
@@ -157,12 +176,20 @@ const Messages = () => {
                       <td>{moment(c.updatedAt).fromNow()}</td>
                       <td>
                         {(
-                          (currentUser.isSeller && c.readBySeller) ||
-                          (!currentUser.isSeller && c.readByBuyer)
+                          (currentUser?.isSeller && c.readBySeller) ||
+                          (!currentUser?.isSeller && c.readByBuyer)
                         ) ? (
                           <span className="seen" title="Seen">✓✓</span>
                         ) : (
-                          <button className="mark-read">Mark as Read</button>
+                          <button
+                            className="mark-read"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleRead(c.id);
+                            }}
+                          >
+                            Mark as Read
+                          </button>
                         )}
                       </td>
                     </tr>
