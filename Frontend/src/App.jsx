@@ -31,6 +31,10 @@ import Community from "./pages/community/Community";
 import Business from "./pages/business/Business";
 import Wishlist from "./pages/wishlist/Wishlist";
 import Profile from "./pages/profile/Profile";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import ManageUsers from "./pages/admin/ManageUsers";
+import ManageGigs from "./pages/admin/ManageGigs";
+
 function App() {
   const queryClient = new QueryClient();
 
@@ -166,6 +170,15 @@ function App() {
           },
           {
             path: "/profile/:id", element: <Profile />
+          },
+          {
+            path: "/admin", element: <AdminDashboard />
+          },
+          {
+            path: "/admin/users", element: <ManageUsers />
+          },
+          {
+            path: "/admin/gigs", element: <ManageGigs />
           },
         ],
       },

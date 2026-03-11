@@ -34,7 +34,18 @@ export const verifyToken = (req, res, next) => {
     console.log("   ✅ TOKEN VALID - User ID:", payload.id);
     req.userId = payload.id;
     req.isSeller = payload.isSeller;
+    req.isAdmin = payload.isAdmin;
 
     next();
+  });
+};
+
+export const verifyAdmin = (req, res, next) => {
+  verifyToken(req, res, () => {
+    if (req.isAdmin) {
+      next();
+    } else {
+      return next(createError(403, "You are not authorized to perform this action!"));
+    }
   });
 };

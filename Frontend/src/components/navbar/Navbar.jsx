@@ -114,6 +114,11 @@ function Navbar() {
                             <span>{currentUser?.username}</span>
                             {open && (
                                 <div className="options">
+                                    {currentUser.isAdmin && (
+                                        <Link className="link adminLink" to="/admin">
+                                            Admin Dashboard
+                                        </Link>
+                                    )}
                                     {currentUser.isSeller && (
                                         <>
                                             <Link className="link" to="/dashboard">

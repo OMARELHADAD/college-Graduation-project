@@ -10,6 +10,7 @@ import messageRoute from "./routes/message.route.js";
 import reviewRoute from "./routes/review.route.js";
 import authRoute from "./routes/auth.route.js";
 import aiRoute from "./routes/ai.route.js"; // New Import
+import adminRoute from "./routes/admin.route.js"; // New Admin Route
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import recommendationRoute from "./routes/recommendation.route.js";
@@ -48,6 +49,7 @@ app.use("/api/messages", messageRoute);
 app.use("/api/reviews", reviewRoute);
 app.use("/api/ai", aiRoute); // New Route
 app.use("/api/recommendations", recommendationRoute); // New Route
+app.use("/api/admin", adminRoute); // New Admin Route
 
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;
